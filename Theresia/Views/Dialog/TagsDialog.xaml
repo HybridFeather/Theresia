@@ -1,0 +1,32 @@
+﻿<Border x:Class="Theresia.Views.Dialog.TagsDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:local="clr-namespace:Theresia.Views.Dialog"
+        mc:Ignorable="d" 
+        CornerRadius="10"
+        Width="600"
+        Height="400"
+        Background="{DynamicResource RegionBrush}"
+        xmlns:prism="http://prismlibrary.com/"
+        prism:ViewModelLocator.AutoWireViewModel="True"
+        xmlns:hc="https://handyorg.github.io/handycontrol">
+    <Border.Resources>
+        <Style x:Key="TagCustomStyle" BasedOn="{StaticResource TagBaseStyle}" TargetType="hc:Tag">
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+    </Border.Resources>
+    <StackPanel VerticalAlignment="Center" Margin="32">
+        <hc:TagContainer ItemsSource="{Binding DataList,Mode=TwoWay}" ItemContainerStyle="{StaticResource TagCustomStyle}" hc:TitleElement.Background="{DynamicResource PrimaryBrush}" Margin="11" MinHeight="150" MaxHeight="200" Padding="5" />
+        <TextBlock HorizontalAlignment="Center" Text="*不存在的标签会被直接创建" Foreground="Crimson"/>
+        <Grid Width="400" Margin="11,0,11,11">
+            <StackPanel Orientation="Horizontal" Width="400" Margin="11,5,11,11">
+                <hc:AutoCompleteTextBox ItemsSource="{Binding TagList}" Width="260" Text="{Binding TagName}" Margin="0,0,10,0"
+                    DisplayMemberPath="Name"/>
+                <Button Content="添加标签" Command="{Binding AddItemCmd}"/>
+            </StackPanel>
+        </Grid>
+        <Button Width="120" Margin="0,10,0,0" Command="{Binding CloseCmd}" Style="{StaticResource ButtonPrimary}" Content="确定"/>
+    </StackPanel>
+</Border>

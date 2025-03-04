@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="Theresia.Views.Controllers.Settings.SystemSetting"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Theresia.Views.Controllers.Settings"
+             mc:Ignorable="d" 
+             xmlns:prism="http://prismlibrary.com/"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             xmlns:hc="https://handyorg.github.io/handycontrol"
+             Background="{DynamicResource RegionBrush}">
+        <Grid>
+        <hc:TransitioningContentControl>
+            <Grid Width="400">
+                <hc:ScrollViewer IsInertiaEnabled="True">
+                    <hc:SimpleStackPanel Margin="32">
+                        <hc:UniformSpacingPanel Spacing="10">
+                            <Grid Width="320">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="关闭后最小化：" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                <ToggleButton Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,5,0" Style="{StaticResource ToggleButtonSwitch}" 
+                                              IsEnabled="{Binding CloseMinimizesEnable}" Command="{Binding CloseMinimizesChangedCmd}" IsChecked="{Binding CloseMinimizesValue}"/>
+                            </Grid>
+                        </hc:UniformSpacingPanel>
+                        <hc:Divider />
+
+                    </hc:SimpleStackPanel>
+                </hc:ScrollViewer>
+            </Grid>
+        </hc:TransitioningContentControl>
+    </Grid>
+</UserControl>

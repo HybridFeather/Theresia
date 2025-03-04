@@ -1,0 +1,42 @@
+﻿<Window x:Class="Theresia.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:prism="http://prismlibrary.com/"
+        prism:ViewModelLocator.AutoWireViewModel="True"
+        xmlns:local="clr-namespace:Theresia.ViewModels"
+        xmlns:uc="clr-namespace:Theresia.Views.Controllers"
+        xmlns:hc="https://handyorg.github.io/handycontrol"
+        mc:Ignorable="d"
+        Icon="../Resource/Image/favicon.ico"
+        Closing="Window_Closing"
+        Title="{Binding title}" Height="{Binding screenHeight}" Width="{Binding screenWidth}">
+    <Grid>
+       
+        <DockPanel>
+            <!-- 引入侧边菜单栏 UserControl -->
+            <uc:SideMenu DockPanel.Dock="Left" Width="200"/>
+
+            <!-- 主内容区域 -->
+            <ContentControl prism:RegionManager.RegionName="MainRegion" DockPanel.Dock="Right" Background="White" />
+        </DockPanel>
+        <hc:NotifyIcon x:Name="TrayIcon" Icon="../Resource/Image/favicon.ico" Token="Theresia" Text="HandyControl" IsBlink="False" Visibility="{Binding ContextMenuIsShow,Converter={StaticResource Boolean2VisibilityConverter}}">
+            <hc:NotifyIcon.ContextMenu>
+                <ContextMenu Width="150">
+                    <!-- <MenuItem Command="{Binding SendNotificationCmd}" Header="发送通知"/> -->
+                    <MenuItem Command="hc:ControlCommands.PushMainWindow2Top" Header="打开面板"/>
+                    <MenuItem Command="hc:ControlCommands.ShutdownApp" Header="退出程序"/>
+                </ContextMenu>
+            </hc:NotifyIcon.ContextMenu>
+            <hc:Interaction.Triggers>
+                <hc:EventTrigger EventName="Click">
+                    <hc:EventToCommand Command="hc:ControlCommands.PushMainWindow2Top"/>
+                </hc:EventTrigger>
+                <hc:EventTrigger EventName="MouseDoubleClick">
+                    <hc:EventToCommand Command="{Binding MouseCmd}" CommandParameter="MouseDoubleClick"/>
+                </hc:EventTrigger>
+            </hc:Interaction.Triggers>
+        </hc:NotifyIcon>
+    </Grid>
+</Window>

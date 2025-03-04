@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="Theresia.Views.TagManagement"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Theresia.Views"
+             xmlns:prism="http://prismlibrary.com/"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             xmlns:hc="https://handyorg.github.io/handycontrol"
+             mc:Ignorable="d" 
+             Background="{DynamicResource RegionBrush}">
+        <UserControl.Resources>
+        <Style x:Key="TagCustomStyle" BasedOn="{StaticResource TagBaseStyle}" TargetType="hc:Tag">
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+        </UserControl.Resources>
+    <hc:TransitioningContentControl>
+        <hc:ScrollViewer IsInertiaEnabled="True">
+            <StackPanel Margin="11">
+                <hc:TagContainer ItemContainerStyle="{StaticResource TagCustomStyle}" Name="TagContainer" hc:TitleElement.Background="{DynamicResource PrimaryBrush}" Margin="11" MinHeight="500" MaxHeight="500" Padding="5"  ItemsSource="{Binding DataList}"/>
+                <Grid Width="700" Margin="11,0,11,11">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <!-- 左侧自动宽度 -->
+                        <ColumnDefinition Width="*" />
+                        <!-- 占满剩余空间（用于间距） -->
+                        <ColumnDefinition Width="Auto"/>
+                        <!-- 右侧自动宽度 -->
+                    </Grid.ColumnDefinitions>
+                    <!-- 右侧：搜索框 + 搜索按钮 -->
+                    <StackPanel Orientation="Horizontal" Grid.Column="0">
+                        <TextBox hc:TitleElement.Title="搜索："  
+                            Text="{Binding SearchKey}"  
+                            hc:InfoElement.Placeholder="输入关键词过滤"  
+                            Style="{StaticResource TextBoxExtend}" 
+                            Width="280" 
+                            hc:TitleElement.TitlePlacement="Left"/>
+                        <Button Content="搜索" Command="{Binding SearchCmd}" Margin="10,0,0,0"/>
+                    </StackPanel>
+                    <!-- 左侧：添加标签 按钮 + 输入框 -->
+                    <StackPanel Orientation="Horizontal" Grid.Column="2">
+                        <TextBox Text="{Binding TagName}" Width="240" Margin="0,0,10,0" />
+                        <Button Content="添加标签" Command="{Binding AddItemCmd}"/>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </hc:ScrollViewer>
+    </hc:TransitioningContentControl>
+</UserControl>
